@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "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";
+var token = "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";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -33,6 +33,7 @@ void Authenticated(User user)
     switch (choice)
     {
         case "1":
+            Console.Clear();
             Issues();
             break;
     }
@@ -54,24 +55,31 @@ void Issues()
     switch (choice)
     {
         case "1":
+            Console.Clear();
             ListAllIssues();
             break;
         case "2":
+            Console.Clear();
             ListAllIssuesForRepository();
             break;
         case "3":
+            Console.Clear();
             GetIssue();
             break;
         case "4":
+            Console.Clear();
             CreateIssue();
             break;
         case "5":
+            Console.Clear();
             UpdateIssue();
             break;
         case "6":
+            Console.Clear();
             DeleteIssue();
             break;
         case "7":
+            Console.Clear();
             ListAllCommentsForIssue();
             break;
     }
@@ -89,9 +97,21 @@ async void ListAllIssues()
 
 async void ListAllIssuesForRepository()
 {
+    Console.WriteLine("Enter owner of repository (Leave blank if its your own):");
     var owner = Console.ReadLine();
+
+    if (owner == "")
+    {
+        owner = client.User.Current().Result.Login;
+        Console.WriteLine(owner);
+    }
+    
+    Console.WriteLine("Enter the name of the repository:");
     var name = Console.ReadLine();
-    var issues = await client.Issue.GetAllForRepository("octokit", "octokit.net");
+    
+    var issues = await client.Issue.GetAllForRepository(owner, name);
+    
+    Console.WriteLine("Found " + issues.Count + " issues:");
 }
 
 async void GetIssue()
