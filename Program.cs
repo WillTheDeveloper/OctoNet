@@ -57,22 +57,22 @@ void Issues()
             ListAllIssues();
             break;
         case "2":
-            // ListAllIssuesForRepository();
+            ListAllIssuesForRepository();
             break;
         case "3":
-            // GetIssue();
+            GetIssue();
             break;
         case "4":
-            // CreateIssue();
+            CreateIssue();
             break;
         case "5":
-            // UpdateIssue();
+            UpdateIssue();
             break;
         case "6":
-            // DeleteIssue();
+            DeleteIssue();
             break;
         case "7":
-            // ListAllCommentsForIssue();
+            ListAllCommentsForIssue();
             break;
     }
 }
@@ -85,6 +85,38 @@ async void ListAllIssues()
     {
         Console.WriteLine(issue.Title);
     }
+}
+
+async void ListAllIssuesForRepository()
+{
+    var owner = Console.ReadLine();
+    var name = Console.ReadLine();
+    var issues = await client.Issue.GetAllForRepository("octokit", "octokit.net");
+}
+
+async void GetIssue()
+{
+    
+}
+
+async void CreateIssue()
+{
+    
+}
+
+async void UpdateIssue()
+{
+    
+}
+
+async void DeleteIssue()
+{
+    
+}
+
+async void ListAllCommentsForIssue()
+{
+    
 }
 
 void Labels()
