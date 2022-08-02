@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "";
+var token = "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";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -33,7 +33,7 @@ void Authenticated(User user)
     switch (choice)
     {
         case "1":
-            
+            Issues();
             break;
     }
 }
@@ -79,7 +79,7 @@ void Issues()
 
 async void ListAllIssues()
 {
-    var issues = await client!.Issue.GetAllForCurrent();
+    var issues = await client.Issue.GetAllForCurrent();
     Console.WriteLine("Issues:");
     foreach (var issue in issues)
     {
