@@ -13,3 +13,5 @@ D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\refint\bonk.dll
 D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.pdb
 D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.genruntimeconfig.cache
 D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\ref\bonk.dll
+D:\Projects\Web\Personal Development\bonk\bin\Debug\net6.0\Octokit.dll
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.csproj.CopyComplete
