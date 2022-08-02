@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "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";
+var token = "";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -16,6 +16,11 @@ else
 {
     Console.WriteLine("No token found, using anonymous");
     Guest();
+}
+
+void ComingSoon()
+{
+    Console.WriteLine("Coming soon!");
 }
 
 void Authenticated(User user)
@@ -121,7 +126,17 @@ async void GetIssue()
 
 async void CreateIssue()
 {
+    Console.WriteLine("Enter the owner of the repository:");
+    var owner = Console.ReadLine();
+    Console.WriteLine("Enter the name of the repository:");
+    var repository = Console.ReadLine();
+    Console.WriteLine("Enter the title of the issue:");
+    var title = Console.ReadLine();
     
+    
+    var createIssue = new NewIssue(title);
+    
+    await client.Issue.Create(owner, repository, createIssue);
 }
 
 async void UpdateIssue()
