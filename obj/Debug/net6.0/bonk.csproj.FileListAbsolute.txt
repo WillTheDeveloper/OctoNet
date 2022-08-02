@@ -1,0 +1,15 @@
+D:\Projects\Web\Personal Development\bonk\bin\Debug\net6.0\bonk.exe
+D:\Projects\Web\Personal Development\bonk\bin\Debug\net6.0\bonk.deps.json
+D:\Projects\Web\Personal Development\bonk\bin\Debug\net6.0\bonk.runtimeconfig.json
+D:\Projects\Web\Personal Development\bonk\bin\Debug\net6.0\bonk.dll
+D:\Projects\Web\Personal Development\bonk\bin\Debug\net6.0\bonk.pdb
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.csproj.AssemblyReference.cache
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.AssemblyInfoInputs.cache
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.AssemblyInfo.cs
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.csproj.CoreCompileInputs.cache
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.dll
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\refint\bonk.dll
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.pdb
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\bonk.genruntimeconfig.cache
+D:\Projects\Web\Personal Development\bonk\obj\Debug\net6.0\ref\bonk.dll

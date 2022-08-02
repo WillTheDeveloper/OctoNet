@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "WqBcZb3EsR7q/1yMGKhXSDviHpPkR4Nm2VYOtu2rb/k9ia/Sub+b3+frFySoWMA3ijqb/uQ3EFVUKzSru+pPUw==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\Web\\Personal Development\\bonk\\bonk.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\willburton\\.nuget\\packages\\octokit\\1.0.1\\octokit.1.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
