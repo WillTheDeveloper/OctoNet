@@ -136,7 +136,19 @@ async void CreateIssue()
     
     var createIssue = new NewIssue(title);
     
+    Console.WriteLine("Add a label (leave blank if none):");
+    var label = Console.ReadLine();
+    if (label != "")
+    {
+        AddLabel(createIssue, label!);
+    }
+
     await client.Issue.Create(owner, repository, createIssue);
+}
+
+void AddLabel(NewIssue issue, string label)
+{
+    issue.Labels.Add(label);
 }
 
 async void UpdateIssue()
