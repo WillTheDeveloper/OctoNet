@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "";
+var token = "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";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -103,9 +103,40 @@ void GetAuthenticatedUser(User authenticatedUser)
 
 void UpdateAuthenticatedUser(User authenticatedUser)
 {
-    Console.WriteLine("Enter the new bio");
-    var bio = Console.ReadLine();
-    var updatedUser = client.User.Update(authenticatedUser.Login, new UserUpdate(bio)).Result;
+    Console.WriteLine("What would you like to update?");
+    Console.WriteLine("1. Name");
+    Console.WriteLine("2. Email");
+    Console.WriteLine("3. Blog");
+    Console.WriteLine("4. Company");
+    Console.WriteLine("5. Location");
+    Console.WriteLine("6. Hire-able");
+    Console.WriteLine("7. Bio");
+    
+    var choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "1":
+            Console.Clear();
+            var old = authenticatedUser.Name;
+            var name = UpdateName();
+            var user = client.User.Update(name).Result;
+            Console.WriteLine("Changed name from " + old + " to " + user.Name);
+            break;
+    }
+}
+
+UserUpdate UpdateName()
+{
+    Console.WriteLine("Enter the new name");
+    var n = Console.ReadLine();
+
+    var name = new UserUpdate
+    {
+        Name = n
+    };
+    
+    return name;
 }
 
 void Repositories()
