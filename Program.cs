@@ -20,7 +20,65 @@ else
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("No token found, using anonymous");
     Console.ResetColor();
-    Guest();
+    Support();
+}
+
+void Support()
+{
+    Console.ForegroundColor = ConsoleColor.Black;
+    Console.WriteLine("Would you like help setting up authentication?");
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("Yes / No");
+    Console.ResetColor();
+    var a = Console.ReadLine();
+
+    if (a == "Yes")
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Black;
+        Console.WriteLine("Do you have a GitHub account?");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine("Yes / No");
+        Console.ResetColor();
+        var b = Console.ReadLine();
+        if (b == "Yes")
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.WriteLine("Follow these steps to authenticate yourself:");
+            Console.WriteLine("1. Open Github in your browser.");
+            Console.WriteLine("2. Login if you have not already done so.");
+        }
+        else if (b == "No")
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine("Create an account and then run this again.");
+        }
+        else
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine("Your input selector was not recognised.");
+            Console.ResetColor();
+            Support();
+        }
+    }
+    else if (a == "No")
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Okay. Please note that without auth, API requests will be throttled a lot.");
+        Console.ResetColor();
+        Guest();
+    }
+    else
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("Your input selector was not recognised.");
+        Console.ResetColor();
+        Support();
+    }
 }
 
 void ComingSoon()
@@ -34,7 +92,7 @@ void ComingSoon()
 void Authenticated(User user)
 {
     Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine("Authenticated as " + user.Login);
+    Console.WriteLine("Authenticated as " + user.Login + " (" + user.Id + ")");
     Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("Please select an category:");
     Console.ForegroundColor = ConsoleColor.DarkGray;
