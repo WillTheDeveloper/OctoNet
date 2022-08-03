@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "";
+var token = "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";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -572,11 +572,15 @@ void apiStatus()
     var howManySearchRequestsCanIMakePerMinute = searchRateLimit.Limit;
     var howManySearchRequestsDoIHaveLeft = searchRateLimit.Remaining;
     var whenDoesTheSearchLimitReset = searchRateLimit.Reset; // UTC time
-    
+
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("Core API rate limit:");
     Console.WriteLine("Rate limit: " + howManyCoreRequestsCanIMakePerHour + " requests per hour");
     Console.WriteLine("Rate limit: " + howManyCoreRequestsDoIHaveLeft + " requests left");
     Console.WriteLine("Rate limit: " + whenDoesTheCoreLimitReset + " UTC time");
-    
+
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine("Search API rate limit:");
     Console.WriteLine("Rate limit: " + howManySearchRequestsCanIMakePerMinute + " requests per minute");
     Console.WriteLine("Rate limit: " + howManySearchRequestsDoIHaveLeft + " requests left");
     Console.WriteLine("Rate limit: " + whenDoesTheSearchLimitReset + " UTC time");
