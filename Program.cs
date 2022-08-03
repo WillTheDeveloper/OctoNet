@@ -116,34 +116,34 @@ async void CreateRelease()
     bool isDraft = false;
     bool isPrerelease = false;
 
-    if (draft == "true")
+    switch (draft)
     {
-        isDraft = true;
-    }
-    else if (draft == "false")
-    {
-        isDraft = false;
-    }
-    else
-    {
-        Console.WriteLine("Invalid draft status");
-        Console.Clear();
-        CreateRelease();
+        case "true":
+            isDraft = true;
+            break;
+        case "false":
+            isDraft = false;
+            break;
+        default:
+            Console.WriteLine("Invalid draft status");
+            Console.Clear();
+            CreateRelease();
+            break;
     }
 
-    if (prerelease == "true")
+    switch (prerelease)
     {
-        isPrerelease = true;
-    }
-    else if (prerelease == "false")
-    {
-        isPrerelease = false;
-    }
-    else
-    {
-        Console.WriteLine("Invalid prerelease status");
-        Console.Clear();
-        CreateRelease();
+        case "true":
+            isPrerelease = true;
+            break;
+        case "false":
+            isPrerelease = false;
+            break;
+        default:
+            Console.WriteLine("Invalid prerelease status");
+            Console.Clear();
+            CreateRelease();
+            break;
     }
 
     var newRelease = new NewRelease(tag);
