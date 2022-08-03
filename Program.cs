@@ -1,10 +1,10 @@
 ﻿using Octokit;
 
-var token = "";
+var token = ""; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
-var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
+var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
 
-if (token != "")
+if (token != "") // Some actions require tokens and auth
 {
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.Green;
@@ -23,7 +23,7 @@ else
     Support();
 }
 
-void Support()
+void Support() // Give any assistance to users using the app
 {
     Console.ForegroundColor = ConsoleColor.Black;
     Console.WriteLine("Would you like help setting up authentication?");
@@ -89,7 +89,7 @@ void ComingSoon()
     Console.ResetColor();
 }
 
-void Authenticated(User user)
+void Authenticated(User user) // Main menu
 {
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Authenticated as " + user.Login + " (" + user.Id + ")");
@@ -125,7 +125,7 @@ void Authenticated(User user)
             Console.Clear();
             Users(user);
             break;
-        case "api":
+        case "api": // Hidden but might add to main options later
             Console.Clear();
             apiStatus();
             break;
