@@ -130,6 +130,13 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             var user3 = client.User.Update(blog).Result;
             Console.WriteLine("Changed blog from " + old3 + " to " + user3.Blog);
             break;
+        case "4":
+            Console.Clear();
+            var old4 = authenticatedUser.Company;
+            var company = UpdateCompany();
+            var user4 = client.User.Update(company).Result;
+            Console.WriteLine("Changed company from " + old4 + " to " + user4.Company);
+            break;
         case "7":
             Console.Clear();
             var old7 = authenticatedUser.Bio;
@@ -141,6 +148,19 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine(user7);
             break;
     }
+}
+
+UserUpdate UpdateCompany()
+{
+    Console.WriteLine("Enter a new company");
+    var c = Console.ReadLine();
+
+    var company = new UserUpdate
+    {
+        Company = c
+    };
+
+    return company;
 }
 
 UserUpdate UpdateBio()
