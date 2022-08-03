@@ -75,6 +75,10 @@ void Releases()
             Console.Clear();
             GetAllReleases();
             break;
+        case "3":
+            Console.Clear();
+            CreateRelease();
+            break;
     }
 }
 
@@ -88,6 +92,68 @@ async void GetAllReleases()
     var latest = releases.First();
     Console.WriteLine("Latest tag is " + latest.TagName);
     Console.WriteLine("Latest release is " + latest.Name);
+}
+
+async void CreateRelease()
+{
+    Console.WriteLine("Enter the owner name of the repository:");
+    var owner = Console.ReadLine();
+    Console.WriteLine("Enter the name of the repository:");
+    var repo = Console.ReadLine();
+    Console.Clear();
+    Console.WriteLine("Enter the tag name of the release:");
+    var tag = Console.ReadLine();
+    Console.WriteLine("Enter the name of the release:");
+    var name = Console.ReadLine();
+    Console.WriteLine("Enter the body of the release:");
+    var body = Console.ReadLine();
+    Console.Clear();
+    Console.WriteLine("Enter the draft status of the release (true or false):");
+    var draft = Console.ReadLine();
+    Console.WriteLine("Enter the prerelease status of the release (true or false):");
+    var prerelease = Console.ReadLine();
+    
+    bool isDraft = false;
+    bool isPrerelease = false;
+
+    if (draft == "true")
+    {
+        isDraft = true;
+    }
+    else if (draft == "false")
+    {
+        isDraft = false;
+    }
+    else
+    {
+        Console.WriteLine("Invalid draft status");
+        Console.Clear();
+        CreateRelease();
+    }
+
+    if (prerelease == "true")
+    {
+        isPrerelease = true;
+    }
+    else if (prerelease == "false")
+    {
+        isPrerelease = false;
+    }
+    else
+    {
+        Console.WriteLine("Invalid prerelease status");
+        Console.Clear();
+        CreateRelease();
+    }
+
+    var newRelease = new NewRelease(tag);
+    newRelease.Name = name;
+    newRelease.Body = body;
+    newRelease.Draft = isDraft;
+    newRelease.Prerelease = isPrerelease;
+    var release = await client.Repository.Release.Create(owner, repo, newRelease);
+    
+    Console.WriteLine("Created released id " + release.Id);
 }
 
 void Issues()
