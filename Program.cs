@@ -175,6 +175,38 @@ void GetAuthenticatedUser(User authenticatedUser)
     Console.WriteLine(authenticatedUser.Login);
 }
 
+void DestructableAction(User user)
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("Are you sure you want to do this action?");
+    Console.WriteLine("Yes / No");
+
+    var choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "Yes":
+            Console.WriteLine("As a secondary safety measure, please answer the following question:");
+            if (user.Name != "")
+            {
+                Console.WriteLine("Please enter your name (Found on your profile)");
+                var input = Console.ReadLine();
+
+                while (input != user.Name)
+                {
+                    Console.Clear();
+                    Console.WriteLine("Please try again.");
+                    input = Console.ReadLine();
+                }
+            }
+            Console.ResetColor();
+            break;
+        case "No":
+            Console.ResetColor();
+            return;
+    }
+}
+
 void UpdateAuthenticatedUser(User authenticatedUser)
 {
     Console.WriteLine("What would you like to update?");
@@ -198,6 +230,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             
         case "1":
             Console.Clear();
+            DestructableAction(authenticatedUser);
             var old1 = authenticatedUser.Name;
             var name = UpdateName();
             var user1 = client.User.Update(name).Result;
