@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "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";
+var token = "";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -46,11 +46,71 @@ void Authenticated(User user)
             Console.Clear();
             Releases();
             break;
+        case "5":
+            Console.Clear();
+            Repositories();
+            break;
         case "api":
             Console.Clear();
             apiStatus();
             break;
     }
+}
+
+void Repositories()
+{
+    Console.WriteLine("Select a repository:");
+    var repositories = client!.Repository.GetAllForCurrent().Result;
+    int i = 0;
+    foreach (var repository in repositories)
+    {
+        i++;
+        Console.WriteLine(i + ": " + repository.Name);
+    }
+    
+    //Select a repository from the list
+    Console.WriteLine("Select a repository by its associated number:");
+    var repositoryChoice = Console.ReadLine();
+    Console.Clear();
+    var information = repositories[int.Parse(repositoryChoice!) - 1];
+    
+    //Get information about the selected repository
+    Console.WriteLine("Selected " + information.Name);
+    
+    Console.WriteLine("What would you like to do with this repository?");
+    
+    Console.WriteLine("1. List commits");
+    Console.WriteLine("2. More details");
+    Console.WriteLine("3. ");
+
+    var choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "1":
+            Console.Clear();
+            ListCommits(information);
+            break;
+        case "2":
+            Console.Clear();
+            RepositoryDetails(information);
+            break;
+    }
+}
+
+void RepositoryDetails(Repository repository)
+{
+    Console.WriteLine(repository.Id);
+    Console.WriteLine("Name: " + repository.Name);
+    Console.WriteLine("Description: " + repository.Description);
+    Console.WriteLine("Created: " + repository.CreatedAt);
+}
+
+void ListCommits(Repository repository)
+{
+    Console.WriteLine("Commits for " + repository.Name);
+
+    ComingSoon();
 }
 
 void Releases()
