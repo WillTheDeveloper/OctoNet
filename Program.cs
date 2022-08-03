@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "";
+var token = "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";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
@@ -82,19 +82,19 @@ void Releases()
     }
 }
 
-async void GetAllReleases()
+void GetAllReleases()
 {
     Console.WriteLine("Enter the repository owner's name:");
     var owner = Console.ReadLine();
     Console.WriteLine("Enter the repository name:");
     var repo = Console.ReadLine();
-    var releases = await client.Repository.Release.GetAll(owner, repo);
+    var releases = client.Repository.Release.GetAll(owner, repo).Result;
     var latest = releases.First();
     Console.WriteLine("Latest tag is " + latest.TagName);
     Console.WriteLine("Latest release is " + latest.Name);
 }
 
-async void CreateRelease()
+void CreateRelease()
 {
     Console.WriteLine("Enter the owner name of the repository:");
     var owner = Console.ReadLine();
@@ -151,7 +151,7 @@ async void CreateRelease()
     newRelease.Body = body;
     newRelease.Draft = isDraft;
     newRelease.Prerelease = isPrerelease;
-    var release = await client.Repository.Release.Create(owner, repo, newRelease);
+    var release = client.Repository.Release.Create(owner, repo, newRelease).Result;
     
     Console.WriteLine("Created released id " + release.Id);
 }
@@ -202,9 +202,9 @@ void Issues()
     }
 }
 
-async void ListAllIssues()
+void ListAllIssues()
 {
-    var issues = await client.Issue.GetAllForCurrent();
+    var issues = client.Issue.GetAllForCurrent().Result;
     Console.WriteLine("Issues:");
     foreach (var issue in issues)
     {
@@ -212,7 +212,7 @@ async void ListAllIssues()
     }
 }
 
-async void ListAllIssuesForRepository()
+void ListAllIssuesForRepository()
 {
     Console.WriteLine("Enter owner of repository (Leave blank if its your own):");
     var owner = Console.ReadLine();
@@ -226,7 +226,7 @@ async void ListAllIssuesForRepository()
     Console.WriteLine("Enter the name of the repository:");
     var name = Console.ReadLine();
     
-    var issues = await client.Issue.GetAllForRepository(owner, name);
+    var issues = client.Issue.GetAllForRepository(owner, name).Result;
     
     Console.WriteLine("Found " + issues.Count + " issues:");
 }
@@ -294,9 +294,9 @@ void Guest()
     Console.WriteLine("Accessing as guest");
 }
 
-async void apiStatus()
+void apiStatus()
 {
-    var miscellaneousRateLimit = await client!.Miscellaneous.GetRateLimits();
+    var miscellaneousRateLimit = client!.Miscellaneous.GetRateLimits().Result;
 
 //  The "core" object provides your rate limit status except for the Search API.
     var coreRateLimit = miscellaneousRateLimit.Resources.Core;
