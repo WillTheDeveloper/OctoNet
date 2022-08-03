@@ -1,13 +1,15 @@
 ﻿using Octokit;
 
-var token = "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";
+var token = "";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
 if (token != "")
 {
     Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Found a token, using it");
+    Console.ResetColor();
     var tokenAuth = new Credentials(token);
     client.Credentials = tokenAuth;
     var user = await client.User.Current();
@@ -15,25 +17,35 @@ if (token != "")
 }
 else
 {
+    Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("No token found, using anonymous");
+    Console.ResetColor();
     Guest();
 }
 
 void ComingSoon()
 {
+    Console.BackgroundColor = ConsoleColor.White;
+    Console.ForegroundColor = ConsoleColor.Black;
     Console.WriteLine("Coming soon!");
+    Console.ResetColor();
 }
 
 void Authenticated(User user)
 {
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Authenticated as " + user.Login);
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("Please select an category:");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
     Console.WriteLine("1. Issues");
     Console.WriteLine("2. Labels");
     Console.WriteLine("3. Milestones");
     Console.WriteLine("4. Releases");
     Console.WriteLine("5. Repositories");
     Console.WriteLine("6. Users");
+    
+    Console.ResetColor();
     
     var choice = Console.ReadLine();
 
@@ -64,7 +76,9 @@ void Authenticated(User user)
 
 void Users(User authenticatedUser)
 {
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("What action would you like to do?");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
     Console.WriteLine("1. Get a user");
     Console.WriteLine("2. Get authenticated user");
     Console.WriteLine("3. Update authenticated user");
@@ -90,7 +104,9 @@ void Users(User authenticatedUser)
 
 void GetUser()
 {
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("Enter the username of the user you want to get");
+    Console.ForegroundColor = ConsoleColor.DarkGray;
     var username = Console.ReadLine();
     var user = client.User.Get(username).Result;
     Console.WriteLine(user.Login);
