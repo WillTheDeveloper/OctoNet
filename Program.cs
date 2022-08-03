@@ -104,6 +104,7 @@ void GetAuthenticatedUser(User authenticatedUser)
 void UpdateAuthenticatedUser(User authenticatedUser)
 {
     Console.WriteLine("What would you like to update?");
+    Console.WriteLine("Clear. Clear a field");
     Console.WriteLine("1. Name");
     Console.WriteLine("2. Email");
     Console.WriteLine("3. Blog");
@@ -116,6 +117,11 @@ void UpdateAuthenticatedUser(User authenticatedUser)
 
     switch (choice)
     {
+        case "Clear" or "clear":
+            Console.Clear();
+            ClearUserField();
+            break;
+            
         case "1":
             Console.Clear();
             var old1 = authenticatedUser.Name;
@@ -146,6 +152,56 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine(old7);
             Console.WriteLine("And updated to:");
             Console.WriteLine(user7);
+            break;
+    }
+}
+
+void ClearUserField()
+{
+    Console.WriteLine("Which field would you like to clear?");
+    Console.WriteLine("1. Name");
+    Console.WriteLine("2. Email");
+    Console.WriteLine("3. Blog");
+    Console.WriteLine("4. Company");
+    Console.WriteLine("5. Location");
+    Console.WriteLine("6. Hire-able");
+    Console.WriteLine("7. Bio");
+
+    var choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "1":
+            var a = new UserUpdate
+            {
+                Name = string.Empty
+            };
+            var aa = client.User.Update(a).Result;
+            Console.WriteLine("Name has been cleared");
+            break;
+        case "2":
+            var b = new UserUpdate
+            {
+                Email = string.Empty
+            };
+            var bb = client.User.Update(b).Result;
+            Console.WriteLine("Email has been cleared");
+            break;
+        case "3":
+            var c = new UserUpdate
+            {
+                Blog = string.Empty
+            };
+            var cc = client.User.Update(c).Result;
+            Console.WriteLine("Blog has been cleared");
+            break;
+        case "4":
+            var d = new UserUpdate
+            {
+                Company = string.Empty
+            };
+            var dd = client.User.Update(d).Result;
+            Console.WriteLine("Company has been cleared");
             break;
     }
 }
