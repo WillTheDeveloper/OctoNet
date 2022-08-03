@@ -129,6 +129,13 @@ void Authenticated(User user) // Main menu
             Console.Clear();
             apiStatus();
             break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            Authenticated(user);
+            break;
     }
 }
 
@@ -156,6 +163,13 @@ void Users(User authenticatedUser)
         case "3":
             Console.Clear();
             UpdateAuthenticatedUser(authenticatedUser);
+            break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            Users(authenticatedUser);
             break;
     }
 }
@@ -204,6 +218,13 @@ void DestructableAction(User user)
         case "No":
             Console.ResetColor();
             return;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            DestructableAction(user);
+            break;
     }
 }
 
@@ -260,6 +281,13 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("And updated to:");
             Console.WriteLine(user7);
             break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            UpdateAuthenticatedUser(authenticatedUser);
+            break;
     }
 }
 
@@ -309,6 +337,13 @@ void ClearUserField()
             };
             var dd = client.User.Update(d).Result;
             Console.WriteLine("Company has been cleared");
+            break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            ClearUserField();
             break;
     }
 }
@@ -403,6 +438,13 @@ void Repositories()
             Console.Clear();
             RepositoryDetails(information);
             break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            Repositories();
+            break;
     }
 }
 
@@ -446,6 +488,13 @@ void Releases()
         case "3":
             Console.Clear();
             CreateRelease();
+            break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            Releases();
             break;
     }
 }
@@ -566,6 +615,13 @@ void Issues()
         case "7":
             Console.Clear();
             ListAllCommentsForIssue();
+            break;
+        default:
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("That option is not recognised.");
+            Console.ResetColor();
+            Issues();
             break;
     }
 }
