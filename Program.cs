@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "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";
+var token = "";
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet"));
 
