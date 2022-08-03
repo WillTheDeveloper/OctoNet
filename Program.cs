@@ -33,6 +33,7 @@ void Authenticated(User user)
     Console.WriteLine("3. Milestones");
     Console.WriteLine("4. Releases");
     Console.WriteLine("5. Repositories");
+    Console.WriteLine("6. Users");
     
     var choice = Console.ReadLine();
 
@@ -50,11 +51,61 @@ void Authenticated(User user)
             Console.Clear();
             Repositories();
             break;
+        case "6":
+            Console.Clear();
+            Users(user);
+            break;
         case "api":
             Console.Clear();
             apiStatus();
             break;
     }
+}
+
+void Users(User authenticatedUser)
+{
+    Console.WriteLine("What action would you like to do?");
+    Console.WriteLine("1. Get a user");
+    Console.WriteLine("2. Get authenticated user");
+    Console.WriteLine("3. Update authenticated user");
+
+    var choice = Console.ReadLine();
+
+    switch (choice)
+    {
+        case "1":
+            Console.Clear();
+            GetUser();
+            break;
+        case "2":
+            Console.Clear();
+            GetAuthenticatedUser(authenticatedUser);
+            break;
+        case "3":
+            Console.Clear();
+            UpdateAuthenticatedUser(authenticatedUser);
+            break;
+    }
+}
+
+void GetUser()
+{
+    Console.WriteLine("Enter the username of the user you want to get");
+    var username = Console.ReadLine();
+    var user = client.User.Get(username).Result;
+    Console.WriteLine(user.Login);
+}
+
+void GetAuthenticatedUser(User authenticatedUser)
+{
+    Console.WriteLine(authenticatedUser.Login);
+}
+
+void UpdateAuthenticatedUser(User authenticatedUser)
+{
+    Console.WriteLine("Enter the new bio");
+    var bio = Console.ReadLine();
+    var updatedUser = client.User.Update(authenticatedUser.Login, new UserUpdate(bio)).Result;
 }
 
 void Repositories()
