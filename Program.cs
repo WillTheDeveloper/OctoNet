@@ -118,12 +118,55 @@ void UpdateAuthenticatedUser(User authenticatedUser)
     {
         case "1":
             Console.Clear();
-            var old = authenticatedUser.Name;
+            var old1 = authenticatedUser.Name;
             var name = UpdateName();
-            var user = client.User.Update(name).Result;
-            Console.WriteLine("Changed name from " + old + " to " + user.Name);
+            var user1 = client.User.Update(name).Result;
+            Console.WriteLine("Changed name from " + old1 + " to " + user1.Name);
+            break;
+        case "3":
+            Console.Clear();
+            var old3 = authenticatedUser.Blog;
+            var blog = UpdateBlog();
+            var user3 = client.User.Update(blog).Result;
+            Console.WriteLine("Changed blog from " + old3 + " to " + user3.Blog);
+            break;
+        case "7":
+            Console.Clear();
+            var old7 = authenticatedUser.Bio;
+            var bio = UpdateBio();
+            var user7 = client.User.Update(bio).Result;
+            Console.WriteLine("Bio has been updated from:");
+            Console.WriteLine(old7);
+            Console.WriteLine("And updated to:");
+            Console.WriteLine(user7);
             break;
     }
+}
+
+UserUpdate UpdateBio()
+{
+    Console.WriteLine("Enter a new bio");
+    var b = Console.ReadLine();
+
+    var bio = new UserUpdate
+    {
+        Bio = b
+    };
+
+    return bio;
+}
+
+UserUpdate UpdateBlog()
+{
+    Console.WriteLine("Enter a new blog");
+    var b = Console.ReadLine();
+
+    var blog = new UserUpdate
+    {
+        Blog = b
+    };
+
+    return blog;
 }
 
 UserUpdate UpdateName()
