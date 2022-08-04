@@ -583,6 +583,8 @@ void Issues()
     Console.WriteLine("5. Update an issue");
     Console.WriteLine("6. Delete an issue");
     Console.WriteLine("7. List all comments for an issue");
+    Console.WriteLine("8. Lock an issue");
+    Console.WriteLine("9. Unlock an issue");
     
     var choice = Console.ReadLine();
     
@@ -616,6 +618,10 @@ void Issues()
             Console.Clear();
             ListAllCommentsForIssue();
             break;
+        case "8":
+            Console.Clear();
+            LockIssue();
+            break;
         default:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
@@ -624,6 +630,41 @@ void Issues()
             Issues();
             break;
     }
+}
+
+void LockIssue()
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("This command will only work if you have push access on the repository!");
+
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
+    Console.WriteLine("What is the name of the owner for the repository?");
+    Console.ForegroundColor = ConsoleColor.White;
+    var owner = Console.ReadLine();
+
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
+    Console.WriteLine("What is the name of the repository?");
+    Console.ForegroundColor = ConsoleColor.White;
+    var repo = Console.ReadLine();
+    
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
+    Console.WriteLine("What is the issue number?");
+    var identifier = Console.ReadLine();
+
+    //Parse identifier into an integer
+    int issueNumber = 0;
+    if (!int.TryParse(identifier, out issueNumber))
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Invalid issue number");
+        Console.ResetColor();
+        Console.Clear();
+        LockIssue();
+    }
+    
+
+    var issue = client!.Issue.Lock(owner, repo, issueNumber);
 }
 
 void ListAllIssues()

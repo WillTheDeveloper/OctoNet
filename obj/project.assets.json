@@ -37,24 +37,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\willburton\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\twitc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Web\\Personal Development\\bonk\\bonk.csproj",
+      "projectUniqueName": "C:\\Users\\twitc\\RiderProjects\\OctoNet\\bonk.csproj",
       "projectName": "bonk",
-      "projectPath": "D:\\Projects\\Web\\Personal Development\\bonk\\bonk.csproj",
-      "packagesPath": "C:\\Users\\willburton\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Web\\Personal Development\\bonk\\obj\\",
+      "projectPath": "C:\\Users\\twitc\\RiderProjects\\OctoNet\\bonk.csproj",
+      "packagesPath": "C:\\Users\\twitc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\twitc\\RiderProjects\\OctoNet\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\willburton\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\twitc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
