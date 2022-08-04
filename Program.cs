@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Octokit;
 
-var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
+var token = ""; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
 Debug.WriteLine("Client created");
