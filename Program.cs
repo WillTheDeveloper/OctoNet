@@ -32,52 +32,55 @@ void Support() // Give any assistance to users using the app
     Console.ResetColor();
     var a = Console.ReadLine();
 
-    if (a == "Yes")
+    switch (a)
     {
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Black;
-        Console.WriteLine("Do you have a GitHub account?");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("Yes / No");
-        Console.ResetColor();
-        var b = Console.ReadLine();
-        if (b == "Yes")
-        {
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.WriteLine("Follow these steps to authenticate yourself:");
-            Console.WriteLine("1. Open Github in your browser.");
-            Console.WriteLine("2. Login if you have not already done so.");
-        }
-        else if (b == "No")
+        case "Yes":
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine("Create an account and then run this again.");
+            Console.WriteLine("Do you have a GitHub account?");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Yes / No");
+            Console.ResetColor();
+            var b = Console.ReadLine();
+            switch (b)
+            {
+                case "Yes":
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.WriteLine("Follow these steps to authenticate yourself:");
+                    Console.WriteLine("1. Open Github in your browser.");
+                    Console.WriteLine("2. Login if you have not already done so.");
+                    break;
+                case "No":
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.WriteLine("Create an account and then run this again.");
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.WriteLine("Your input selector was not recognised.");
+                    Console.ResetColor();
+                    Support();
+                    break;
+            }
+
+            break;
         }
-        else
-        {
+        case "No":
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Okay. Please note that without auth, API requests will be throttled a lot.");
+            Console.ResetColor();
+            Guest();
+            break;
+        default:
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Your input selector was not recognised.");
             Console.ResetColor();
             Support();
-        }
-    }
-    else if (a == "No")
-    {
-        Console.Clear();
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("Okay. Please note that without auth, API requests will be throttled a lot.");
-        Console.ResetColor();
-        Guest();
-    }
-    else
-    {
-        Console.ForegroundColor = ConsoleColor.Magenta;
-        Console.WriteLine("Your input selector was not recognised.");
-        Console.ResetColor();
-        Support();
+            break;
     }
 }
 
