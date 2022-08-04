@@ -271,6 +271,20 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             var user4 = client.User.Update(company).Result;
             Console.WriteLine("Changed company from " + old4 + " to " + user4.Company);
             break;
+        case "5":
+            Console.Clear();
+            var old5 = authenticatedUser.Location;
+            var location = UpdateLocation();
+            var user5 = client.User.Update(location).Result;
+            Console.WriteLine("Changed location from " + old5 + " to " + user5.Location);
+            break;
+        case "6":
+            Console.Clear();
+            var old6 = authenticatedUser.Hireable;
+            var hireable = UpdateHireable();
+            var user6 = client.User.Update(hireable).Result;
+            Console.WriteLine("Changed hireable from " + old6 + " to " + user6.Hireable);
+            break;
         case "7":
             Console.Clear();
             var old7 = authenticatedUser.Bio;
@@ -398,6 +412,51 @@ UserUpdate UpdateName()
     };
     
     return name;
+}
+
+UserUpdate UpdateLocation()
+{
+    Console.WriteLine("Enter a new location");
+    var l = Console.ReadLine();
+
+    var location = new UserUpdate
+    {
+        Location = l
+    };
+
+    return location;
+}
+
+UserUpdate UpdateHireable()
+{
+    Console.WriteLine("Enter a new hireable (true or false)");
+    var h = Console.ReadLine();
+
+    var hire = false;
+    
+    if (h is "true" or "True")
+    {
+        hire = true;
+    }
+    else if (h is "false" or "False")
+    {
+        hire = false;
+    }
+    else
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("That option is not recognised.");
+        Console.ResetColor();
+        UpdateHireable();
+    }
+
+    var hireable = new UserUpdate
+    {
+        Hireable = hire
+    };
+
+    return hireable;
 }
 
 void Repositories()
