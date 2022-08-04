@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
+var token = ""; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
 
