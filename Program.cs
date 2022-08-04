@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = ""; // ADD YOUR PERSONAL ACCESS TOKEN HERE
+var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
 
@@ -257,6 +257,14 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             var user1 = client.User.Update(name).Result;
             Console.WriteLine("Changed name from " + old1 + " to " + user1.Name);
             break;
+        case "2":
+            Console.Clear();
+            DestructableAction(authenticatedUser);
+            var old2 = authenticatedUser.Email;
+            var email = UpdateEmail();
+            var user2 = client.User.Update(email).Result;
+            Console.WriteLine("Changed email from " + old2 + " to " + user2.Email);
+            break;
         case "3":
             Console.Clear();
             var old3 = authenticatedUser.Blog;
@@ -425,6 +433,19 @@ UserUpdate UpdateLocation()
     };
 
     return location;
+}
+
+UserUpdate UpdateEmail()
+{
+    Console.WriteLine("Enter a new email");
+    var e = Console.ReadLine();
+
+    var email = new UserUpdate
+    {
+        Email = e
+    };
+
+    return email;
 }
 
 UserUpdate UpdateHireable()
