@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = ""; // ADD YOUR PERSONAL ACCESS TOKEN HERE
+var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
 
@@ -686,7 +686,8 @@ void Issues()
     Console.WriteLine("7. List all comments for an issue");
     Console.WriteLine("8. Lock an issue");
     Console.WriteLine("9. Unlock an issue");
-    
+    Console.WriteLine("10. List all assignees");
+
     var choice = Console.ReadLine();
     
     switch (choice)
@@ -722,6 +723,10 @@ void Issues()
         case "8":
             Console.Clear();
             LockIssue();
+            break;
+        case "9":
+            Console.Clear();
+            UnlockIssue();
             break;
         default:
             Console.Clear();
@@ -764,8 +769,44 @@ void LockIssue()
         LockIssue();
     }
     
-
     var issue = client!.Issue.Lock(owner, repo, issueNumber);
+    
+    Console.WriteLine("Issue locked");
+}
+
+void UnlockIssue()
+{
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("This command will only work if you have push access on the repository!");
+
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
+    Console.WriteLine("What is the name of the owner for the repository?");
+    Console.ForegroundColor = ConsoleColor.White;
+    var owner = Console.ReadLine();
+
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
+    Console.WriteLine("What is the name of the repository?");
+    Console.ForegroundColor = ConsoleColor.White;
+    var repo = Console.ReadLine();
+    
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.DarkCyan;
+    Console.WriteLine("What is the issue number?");
+    var identifier = Console.ReadLine();
+    
+    int issueNumber = 0;
+    if (!int.TryParse(identifier, out issueNumber))
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Invalid issue number");
+        Console.ResetColor();
+        Console.Clear();
+        LockIssue();
+    }
+
+    var issue = client!.Issue.Unlock(owner, repo, issueNumber);
+    
+    Console.WriteLine("Issue unlocked: " + issue.Status);
 }
 
 void ListAllIssues()
@@ -822,6 +863,8 @@ async void CreateIssue()
     }
 
     await client.Issue.Create(owner, repository, createIssue);
+    
+    Console.WriteLine("Issue created!");
 }
 
 void AddLabel(NewIssue issue, string label)
