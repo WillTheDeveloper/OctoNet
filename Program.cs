@@ -1,14 +1,17 @@
-﻿using Octokit;
+﻿using System.Diagnostics;
+using Octokit;
 
-var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
+var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
+Debug.WriteLine("Client created");
 
 if (token != "") // Some actions require tokens and auth
 {
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Found a token, using it");
+    Debug.WriteLine("Found a token: " + token);
     Console.ResetColor();
     var tokenAuth = new Credentials(token);
     client.Credentials = tokenAuth;
@@ -19,12 +22,14 @@ else
 {
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("No token found, using anonymous");
+    Debug.WriteLine("No token found");
     Console.ResetColor();
     Support();
 }
 
 void Support() // Give any assistance to users using the app
 {
+    Debug.WriteLine("Running support");
     Console.ForegroundColor = ConsoleColor.Black;
     Console.WriteLine("Would you like help setting up authentication?");
     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -36,6 +41,7 @@ void Support() // Give any assistance to users using the app
     {
         case "Yes":
         {
+            Debug.WriteLine("Needs help with authentication");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Do you have a GitHub account?");
@@ -46,6 +52,7 @@ void Support() // Give any assistance to users using the app
             switch (b)
             {
                 case "Yes":
+                    Debug.WriteLine("Has a GitHub account");
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Console.BackgroundColor = ConsoleColor.White;
@@ -54,11 +61,13 @@ void Support() // Give any assistance to users using the app
                     Console.WriteLine("2. Login if you have not already done so.");
                     break;
                 case "No":
+                    Debug.WriteLine("Does not have a GitHub account");
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.WriteLine("Create an account and then run this again.");
                     break;
                 default:
+                    Debug.WriteLine("Invalid input when asking if user has a GitHub account");
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     Console.WriteLine("Your input selector was not recognised.");
                     Console.ResetColor();
@@ -69,6 +78,7 @@ void Support() // Give any assistance to users using the app
             break;
         }
         case "No":
+            Debug.WriteLine("Does not need help with authentication");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Okay. Please note that without auth, API requests will be throttled a lot.");
@@ -76,6 +86,7 @@ void Support() // Give any assistance to users using the app
             Guest();
             break;
         default:
+            Debug.WriteLine("Invalid input when asking if user needs help");
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Your input selector was not recognised.");
             Console.ResetColor();
@@ -86,6 +97,7 @@ void Support() // Give any assistance to users using the app
 
 void ComingSoon()
 {
+    Debug.WriteLine("Displaying coming soon message");
     Console.BackgroundColor = ConsoleColor.White;
     Console.ForegroundColor = ConsoleColor.Black;
     Console.WriteLine("Coming soon!");
@@ -96,6 +108,7 @@ void Authenticated(User user) // Main menu
 {
     Console.ForegroundColor = ConsoleColor.Green;
     Console.WriteLine("Authenticated as " + user.Login + " (" + user.Id + ")");
+    Debug.WriteLine("Authenticated as " + user.Login + " (" + user.Id + ")");
     Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("Please select an category:");
     Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -114,26 +127,32 @@ void Authenticated(User user) // Main menu
     {
         case "1":
             Console.Clear();
+            Debug.WriteLine("Issues selected");
             Issues();
             break;
         case "4":
             Console.Clear();
+            Debug.WriteLine("Releases selected");
             Releases();
             break;
         case "5":
             Console.Clear();
+            Debug.WriteLine("Repositories selected");
             Repositories();
             break;
         case "6":
             Console.Clear();
+            Debug.WriteLine("Users selected");
             Users(user);
             break;
         case "api": // Hidden but might add to main options later
             Console.Clear();
+            Debug.WriteLine("API selected");
             apiStatus();
             break;
         default:
             Console.Clear();
+            Debug.WriteLine("Invalid input");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
             Console.ResetColor();
@@ -157,18 +176,22 @@ void Users(User authenticatedUser)
     {
         case "1":
             Console.Clear();
+            Debug.WriteLine("Getting a user");
             GetUser();
             break;
         case "2":
             Console.Clear();
+            Debug.WriteLine("Getting authenticated user");
             GetAuthenticatedUser(authenticatedUser);
             break;
         case "3":
             Console.Clear();
+            Debug.WriteLine("Updating authenticated user");
             UpdateAuthenticatedUser(authenticatedUser);
             break;
         default:
             Console.Clear();
+            Debug.WriteLine("Invalid input");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
             Console.ResetColor();
@@ -179,6 +202,7 @@ void Users(User authenticatedUser)
 
 void GetUser()
 {
+    Debug.WriteLine("Get a user method");
     Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("Enter the username of the user you want to get");
     Console.ForegroundColor = ConsoleColor.DarkGray;
@@ -189,11 +213,13 @@ void GetUser()
 
 void GetAuthenticatedUser(User authenticatedUser)
 {
+    Debug.WriteLine("Get authenticated user method");
     Console.WriteLine(authenticatedUser.Login);
 }
 
 void DestructableAction(User user)
 {
+    Debug.WriteLine("Destructable action method");
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Are you sure you want to do this action?");
     Console.WriteLine("Yes / No");
@@ -203,6 +229,7 @@ void DestructableAction(User user)
     switch (choice)
     {
         case "Yes":
+            Debug.WriteLine("Destructible action confirmed");
             Console.WriteLine("As a secondary safety measure, please answer the following question:");
             if (user.Name != "")
             {
@@ -211,6 +238,7 @@ void DestructableAction(User user)
 
                 while (input != user.Name)
                 {
+                    Debug.WriteLine("Incorrect input: Expecting " + user.Name + " but got " + input);
                     Console.Clear();
                     Console.WriteLine("Please try again.");
                     input = Console.ReadLine();
@@ -219,10 +247,12 @@ void DestructableAction(User user)
             Console.ResetColor();
             break;
         case "No":
+            Debug.WriteLine("Destructible action cancelled");
             Console.ResetColor();
             return;
         default:
             Console.Clear();
+            Debug.WriteLine("Invalid input");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
             Console.ResetColor();
@@ -233,6 +263,7 @@ void DestructableAction(User user)
 
 void UpdateAuthenticatedUser(User authenticatedUser)
 {
+    Debug.WriteLine("Update authenticated user method");
     Console.WriteLine("What would you like to update?");
     Console.WriteLine("Clear. Clear a field");
     Console.WriteLine("1. Name");
@@ -248,11 +279,13 @@ void UpdateAuthenticatedUser(User authenticatedUser)
     switch (choice)
     {
         case "Clear" or "clear":
+            Debug.WriteLine("Selected clear");
             Console.Clear();
             ClearUserField();
             break;
             
         case "1":
+            Debug.WriteLine("Selected to update name");
             Console.Clear();
             DestructableAction(authenticatedUser);
             var old1 = authenticatedUser.Name;
@@ -261,6 +294,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("Changed name from " + old1 + " to " + user1.Name);
             break;
         case "2":
+            Debug.WriteLine("Selected to update email");
             Console.Clear();
             DestructableAction(authenticatedUser);
             var old2 = authenticatedUser.Email;
@@ -269,6 +303,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("Changed email from " + old2 + " to " + user2.Email);
             break;
         case "3":
+            Debug.WriteLine("Selected to update blog");
             Console.Clear();
             var old3 = authenticatedUser.Blog;
             var blog = UpdateBlog();
@@ -276,6 +311,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("Changed blog from " + old3 + " to " + user3.Blog);
             break;
         case "4":
+            Debug.WriteLine("Selected to update company");
             Console.Clear();
             var old4 = authenticatedUser.Company;
             var company = UpdateCompany();
@@ -283,6 +319,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("Changed company from " + old4 + " to " + user4.Company);
             break;
         case "5":
+            Debug.WriteLine("Selected to update location");
             Console.Clear();
             var old5 = authenticatedUser.Location;
             var location = UpdateLocation();
@@ -290,6 +327,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("Changed location from " + old5 + " to " + user5.Location);
             break;
         case "6":
+            Debug.WriteLine("Selected to update hire-able");
             Console.Clear();
             var old6 = authenticatedUser.Hireable;
             var hireable = UpdateHireable();
@@ -297,6 +335,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine("Changed hireable from " + old6 + " to " + user6.Hireable);
             break;
         case "7":
+            Debug.WriteLine("Selected to update bio");
             Console.Clear();
             var old7 = authenticatedUser.Bio;
             var bio = UpdateBio();
@@ -307,6 +346,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
             Console.WriteLine(user7);
             break;
         default:
+            Debug.WriteLine("Invalid input");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
@@ -318,6 +358,7 @@ void UpdateAuthenticatedUser(User authenticatedUser)
 
 void ClearUserField()
 {
+    Debug.WriteLine("Clear user field method");
     Console.WriteLine("Which field would you like to clear?");
     Console.WriteLine("1. Name");
     Console.WriteLine("2. Email");
@@ -332,6 +373,7 @@ void ClearUserField()
     switch (choice)
     {
         case "1":
+            Debug.WriteLine("Clearing name field on user");
             var a = new UserUpdate
             {
                 Name = string.Empty
@@ -340,6 +382,7 @@ void ClearUserField()
             Console.WriteLine("Name has been cleared");
             break;
         case "2":
+            Debug.WriteLine("Clearing email field on user");
             var b = new UserUpdate
             {
                 Email = string.Empty
@@ -348,6 +391,7 @@ void ClearUserField()
             Console.WriteLine("Email has been cleared");
             break;
         case "3":
+            Debug.WriteLine("Clearing blog field on user");
             var c = new UserUpdate
             {
                 Blog = string.Empty
@@ -356,6 +400,7 @@ void ClearUserField()
             Console.WriteLine("Blog has been cleared");
             break;
         case "4":
+            Debug.WriteLine("Clearing company field on user");
             var d = new UserUpdate
             {
                 Company = string.Empty
@@ -364,6 +409,7 @@ void ClearUserField()
             Console.WriteLine("Company has been cleared");
             break;
         default:
+            Debug.WriteLine("Invalid input");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
@@ -375,6 +421,7 @@ void ClearUserField()
 
 UserUpdate UpdateCompany()
 {
+    Debug.WriteLine("Updating company value");
     Console.WriteLine("Enter a new company");
     var c = Console.ReadLine();
 
@@ -388,6 +435,7 @@ UserUpdate UpdateCompany()
 
 UserUpdate UpdateBio()
 {
+    Debug.WriteLine("Updating bio value");
     Console.WriteLine("Enter a new bio");
     var b = Console.ReadLine();
 
@@ -401,6 +449,7 @@ UserUpdate UpdateBio()
 
 UserUpdate UpdateBlog()
 {
+    Debug.WriteLine("Updating blog value");
     Console.WriteLine("Enter a new blog");
     var b = Console.ReadLine();
 
@@ -414,6 +463,7 @@ UserUpdate UpdateBlog()
 
 UserUpdate UpdateName()
 {
+    Debug.WriteLine("Updating name value");
     Console.WriteLine("Enter the new name");
     var n = Console.ReadLine();
 
@@ -427,6 +477,7 @@ UserUpdate UpdateName()
 
 UserUpdate UpdateLocation()
 {
+    Debug.WriteLine("Updating location value");
     Console.WriteLine("Enter a new location");
     var l = Console.ReadLine();
 
@@ -440,6 +491,7 @@ UserUpdate UpdateLocation()
 
 UserUpdate UpdateEmail()
 {
+    Debug.WriteLine("Updating email value");
     Console.WriteLine("Enter a new email");
     var e = Console.ReadLine();
 
@@ -453,6 +505,7 @@ UserUpdate UpdateEmail()
 
 UserUpdate UpdateHireable()
 {
+    Debug.WriteLine("Updating hireable value");
     Console.WriteLine("Enter a new hireable (true or false)");
     var h = Console.ReadLine();
 
@@ -460,14 +513,17 @@ UserUpdate UpdateHireable()
     
     if (h is "true" or "True")
     {
+        Debug.WriteLine("Hireable is true");
         hire = true;
     }
     else if (h is "false" or "False")
     {
+        Debug.WriteLine("Hireable is false");
         hire = false;
     }
     else
     {
+        Debug.WriteLine("Hireable is invalid: " + h);
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("That option is not recognised.");
@@ -485,6 +541,7 @@ UserUpdate UpdateHireable()
 
 void Repositories()
 {
+    Debug.WriteLine("Repositories method");
     Console.WriteLine("Select a repository:");
     var repositories = client!.Repository.GetAllForCurrent().Result;
     int i = 0;
@@ -493,15 +550,18 @@ void Repositories()
         i++;
         Console.WriteLine(i + ": " + repository.Name);
     }
+    Debug.WriteLine(i + " repositories found");
     
     //Select a repository from the list
     Console.WriteLine("Select a repository by its associated number:");
     var repositoryChoice = Console.ReadLine();
+    Debug.WriteLine("Repository choice: " + repositoryChoice);
     Console.Clear();
     var information = repositories[int.Parse(repositoryChoice!) - 1];
     
     //Get information about the selected repository
     Console.WriteLine("Selected " + information.Name);
+    Debug.WriteLine("Selected " + information.Name);
     
     Console.WriteLine("What would you like to do with this repository?");
     
@@ -511,22 +571,27 @@ void Repositories()
     Console.WriteLine("4. Statistics");
 
     var choice = Console.ReadLine();
+    Debug.WriteLine("User selected: " + choice);
 
     switch (choice)
     {
         case "1":
+            Debug.WriteLine("Listing commits");
             Console.Clear();
             ListCommits(information);
             break;
         case "2":
+            Debug.WriteLine("More details");
             Console.Clear();
             RepositoryDetails(information);
             break;
         case "4":
+            Debug.WriteLine("Statistics");
             Console.Clear();
             RepositoryStatistics(information);
             break;
         default:
+            Debug.WriteLine("Invalid input");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
@@ -551,6 +616,7 @@ void RepositoryStatistics(Repository repository)
 
 void RepositoryDetails(Repository repository)
 {
+    Debug.WriteLine("Running repository details method");
     Console.WriteLine(repository.Id);
     Console.WriteLine("Name: " + repository.Name);
     Console.WriteLine("Description: " + repository.Description);
@@ -559,6 +625,7 @@ void RepositoryDetails(Repository repository)
 
 void ListCommits(Repository repository)
 {
+    Debug.WriteLine("Running list commits method");
     Console.WriteLine("Commits for " + repository.Name);
 
     ComingSoon();
@@ -566,6 +633,7 @@ void ListCommits(Repository repository)
 
 void Releases()
 {
+    Debug.WriteLine("Releases method");
     Console.WriteLine("Please select an action:");
     Console.WriteLine("1. Get all releases");
     Console.WriteLine("2. Get a release");
@@ -579,18 +647,22 @@ void Releases()
     Console.WriteLine("10. Get a release's assets by ID");
     
     var choice = Console.ReadLine();
+    Debug.WriteLine("User selected: " + choice);
 
     switch (choice)
     {
         case "1":
+            Debug.WriteLine("Getting all releases");
             Console.Clear();
             GetAllReleases();
             break;
         case "3":
+            Debug.WriteLine("Creating a release");
             Console.Clear();
             CreateRelease();
             break;
         default:
+            Debug.WriteLine("Invalid input");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
@@ -602,10 +674,12 @@ void Releases()
 
 void GetAllReleases()
 {
+    Debug.WriteLine("Running get all releases method");
     Console.WriteLine("Enter the repository owner's name:");
     var owner = Console.ReadLine();
     Console.WriteLine("Enter the repository name:");
     var repo = Console.ReadLine();
+    Debug.WriteLine("Owner: " + owner + " | " + "Repo: " + repo);
     var releases = client.Repository.Release.GetAll(owner, repo).Result;
     var latest = releases.First();
     Console.WriteLine("Latest tag is " + latest.TagName);
@@ -614,6 +688,7 @@ void GetAllReleases()
 
 void CreateRelease()
 {
+    Debug.WriteLine("Running create release method");
     Console.WriteLine("Enter the owner name of the repository:");
     var owner = Console.ReadLine();
     Console.WriteLine("Enter the name of the repository:");
@@ -625,6 +700,7 @@ void CreateRelease()
     var name = Console.ReadLine();
     Console.WriteLine("Enter the body of the release:");
     var body = Console.ReadLine();
+    Debug.WriteLine("Owner: " + owner + " | " + "Repo: " + repo + " | " + "Tag: " + tag + " | " + "Name: " + name + " | " + "Body: " + body);
     Console.Clear();
     Console.WriteLine("Enter the draft status of the release (true or false):");
     var draft = Console.ReadLine();
@@ -663,6 +739,8 @@ void CreateRelease()
             CreateRelease();
             break;
     }
+    
+    Debug.WriteLine("Draft: " + isDraft + " | " + "Prerelease: " + isPrerelease);
 
     var newRelease = new NewRelease(tag);
     newRelease.Name = name;
@@ -671,11 +749,14 @@ void CreateRelease()
     newRelease.Prerelease = isPrerelease;
     var release = client.Repository.Release.Create(owner, repo, newRelease).Result;
     
+    Debug.WriteLine("Release created");
+    
     Console.WriteLine("Created released id " + release.Id);
 }
 
 void Issues()
 {
+    Debug.WriteLine("Issues method");
     Console.WriteLine("Please select an issue:");
     Console.WriteLine("1. List all issues");
     Console.WriteLine("2. List all issues for a repository");
@@ -694,41 +775,51 @@ void Issues()
     {
         case "1":
             Console.Clear();
+            Debug.WriteLine("Listing all issues");
             ListAllIssues();
             break;
         case "2":
             Console.Clear();
+            Debug.WriteLine("Listing all issues for a repository");
             ListAllIssuesForRepository();
             break;
         case "3":
             Console.Clear();
+            Debug.WriteLine("Getting an issue");
             GetIssue();
             break;
         case "4":
             Console.Clear();
+            Debug.WriteLine("Creating an issue");
             CreateIssue();
             break;
         case "5":
             Console.Clear();
+            Debug.WriteLine("Updating an issue");
             UpdateIssue();
             break;
         case "6":
             Console.Clear();
+            Debug.WriteLine("Deleting an issue");
             DeleteIssue();
             break;
         case "7":
             Console.Clear();
+            Debug.WriteLine("Listing all comments for an issue");
             ListAllCommentsForIssue();
             break;
         case "8":
             Console.Clear();
+            Debug.WriteLine("Locking an issue");
             LockIssue();
             break;
         case "9":
             Console.Clear();
+            Debug.WriteLine("Unlocking an issue");
             UnlockIssue();
             break;
         default:
+            Debug.WriteLine("Invalid input");
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("That option is not recognised.");
@@ -740,6 +831,7 @@ void Issues()
 
 void LockIssue()
 {
+    Debug.WriteLine("Running lock issue method");
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("This command will only work if you have push access on the repository!");
 
@@ -757,6 +849,8 @@ void LockIssue()
     Console.ForegroundColor = ConsoleColor.DarkCyan;
     Console.WriteLine("What is the issue number?");
     var identifier = Console.ReadLine();
+    
+    Debug.WriteLine("Owner: " + owner + " | " + "Repo: " + repo + " | " + "Identifier: " + identifier);
 
     //Parse identifier into an integer
     int issueNumber = 0;
@@ -771,11 +865,14 @@ void LockIssue()
     
     var issue = client!.Issue.Lock(owner, repo, issueNumber);
     
+    Debug.WriteLine("Issue locked");
+    
     Console.WriteLine("Issue locked");
 }
 
 void UnlockIssue()
 {
+    Debug.WriteLine("Running unlock issue method");
     Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("This command will only work if you have push access on the repository!");
 
@@ -794,6 +891,8 @@ void UnlockIssue()
     Console.WriteLine("What is the issue number?");
     var identifier = Console.ReadLine();
     
+    Debug.WriteLine("Owner: " + owner + " | " + "Repo: " + repo + " | " + "Identifier: " + identifier);
+    
     int issueNumber = 0;
     if (!int.TryParse(identifier, out issueNumber))
     {
@@ -806,32 +905,42 @@ void UnlockIssue()
 
     var issue = client!.Issue.Unlock(owner, repo, issueNumber);
     
+    Debug.WriteLine("Issue unlocked");
+    
     Console.WriteLine("Issue unlocked: " + issue.Status);
 }
 
 void ListAllIssues()
 {
+    Debug.WriteLine("Running list all issues method");
     var issues = client.Issue.GetAllForCurrent().Result;
     Console.WriteLine("Issues:");
+    int count = 0;
     foreach (var issue in issues)
     {
+        count++;
         Console.WriteLine(issue.Title);
     }
+    Debug.WriteLine(count + " issues found");
 }
 
 void ListAllIssuesForRepository()
 {
+    Debug.WriteLine("Running list all issues for repository method");
     Console.WriteLine("Enter owner of repository (Leave blank if its your own):");
     var owner = Console.ReadLine();
 
     if (owner == "")
     {
+        Debug.WriteLine("Using current user: " + client.User.Current().Result.Login);
         owner = client.User.Current().Result.Login;
         Console.WriteLine(owner);
     }
     
     Console.WriteLine("Enter the name of the repository:");
     var name = Console.ReadLine();
+    
+    Debug.WriteLine("Owner: " + owner + " | " + "Repo: " + name);
     
     var issues = client.Issue.GetAllForRepository(owner, name).Result;
     
@@ -845,6 +954,7 @@ async void GetIssue()
 
 async void CreateIssue()
 {
+    Debug.WriteLine("Running create issue method");
     Console.WriteLine("Enter the owner of the repository:");
     var owner = Console.ReadLine();
     Console.WriteLine("Enter the name of the repository:");
@@ -861,15 +971,19 @@ async void CreateIssue()
     {
         AddLabel(createIssue, label!);
     }
+    
+    Debug.WriteLine("Owner: " + owner + " | " + "Repo: " + repository + " | " + "Title: " + title);
 
     await client.Issue.Create(owner, repository, createIssue);
     
     Console.WriteLine("Issue created!");
+    Debug.WriteLine("Issue created!");
 }
 
 void AddLabel(NewIssue issue, string label)
 {
     issue.Labels.Add(label);
+    Debug.WriteLine("Label added: " + label);
 }
 
 async void UpdateIssue()
@@ -889,6 +1003,7 @@ async void ListAllCommentsForIssue()
 
 void Labels()
 {
+    Debug.WriteLine("Running labels method");
     Console.WriteLine("Please select a label:");
     Console.WriteLine("1. List all labels");
     Console.WriteLine("2. List all labels for a repository");
@@ -900,11 +1015,13 @@ void Labels()
 
 void Guest()
 {
+    Debug.WriteLine("Running guest method");
     Console.WriteLine("Accessing as guest");
 }
 
 void apiStatus()
 {
+    Debug.WriteLine("Running api status method");
     var miscellaneousRateLimit = client!.Miscellaneous.GetRateLimits().Result;
 
 //  The "core" object provides your rate limit status except for the Search API.
