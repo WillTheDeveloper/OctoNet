@@ -1,6 +1,6 @@
 ﻿using Octokit;
 
-var token = ""; // ADD YOUR PERSONAL ACCESS TOKEN HERE
+var token = "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"; // ADD YOUR PERSONAL ACCESS TOKEN HERE
 
 var client = new GitHubClient(new ProductHeaderValue("OctoNet")); // Required header when accessing API
 
@@ -425,6 +425,7 @@ void Repositories()
     Console.WriteLine("1. List commits");
     Console.WriteLine("2. More details");
     Console.WriteLine("3. ");
+    Console.WriteLine("4. Statistics");
 
     var choice = Console.ReadLine();
 
@@ -438,6 +439,10 @@ void Repositories()
             Console.Clear();
             RepositoryDetails(information);
             break;
+        case "4":
+            Console.Clear();
+            RepositoryStatistics(information);
+            break;
         default:
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
@@ -446,6 +451,19 @@ void Repositories()
             Repositories();
             break;
     }
+}
+
+void RepositoryStatistics(Repository repository)
+{
+    ComingSoon();
+    // var stats = client.Repository.Statistics.GetCommitActivity(repository.Owner.Login, repository.FullName).Result;
+    // Console.WriteLine("Commit activity for " + repository.Name);
+    // Console.WriteLine("Total commits: " + stats.Activity.Sum(x => x.Total));
+    // Console.WriteLine("Commits per day:");
+    // foreach (var day in stats.Activity)
+    // {
+    //     Console.WriteLine(day.Total + " on " + day.Days);
+    // }
 }
 
 void RepositoryDetails(Repository repository)
